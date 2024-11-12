@@ -39,6 +39,6 @@
       </mat-form-field>
     </div>
   </div>
-  <button mat-raised-button color="primary" type="submit">Done</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.get('email')!.valid">Done</button>
 </mat-dialog-content>
 </form>

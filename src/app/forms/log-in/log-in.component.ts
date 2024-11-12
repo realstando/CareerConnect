@@ -27,7 +27,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 export class LogInComponent {
   private fb = inject(FormBuilder);
   loginForm = this.fb.group({
-    email: [null, Validators.required],
+    email: [null, Validators.required, Validators.email],
     password: [null, Validators.required]
   });
 
