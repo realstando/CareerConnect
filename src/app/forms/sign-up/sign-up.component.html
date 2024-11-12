@@ -1,0 +1,44 @@
+<form [formGroup]="signupForm" novalidate (ngSubmit)="onSubmit()">
+  <h2 mat-dialog-title>Sign Up</h2>
+  <mat-dialog-content>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="First name" formControlName="firstName">
+        @if (signupForm.controls['firstName'].hasError('required')) {
+          <mat-error>First name is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Last name" formControlName="lastName">
+        @if (signupForm.controls['lastName'].hasError('required')) {
+          <mat-error>Last name is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Email" formControlName="email" type="email">
+        @if (signupForm.controls['email'].hasError('required')) {
+          <mat-error>Email is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Password" formControlName="password" type="password">
+        @if (signupForm.controls['password'].hasError('required')) {
+          <mat-error>Password is <strong>required</strong></mat-error>
+        }
+      </mat-form-field>
+    </div>
+  </div>
+  <button mat-raised-button color="primary" type="submit">Done</button>
+</mat-dialog-content>
+</form>
