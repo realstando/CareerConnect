@@ -1,1 +1,105 @@
-<p>submit works!</p>
+<form [formGroup]="posting" novalidate (ngSubmit)="onSubmit()">
+  <h2 mat-dialog-title>Submit a Job Posting</h2>
+  <mat-dialog-content>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Company" formControlName="company" />
+          @if (posting.controls['company'].hasError('required')) {
+          <mat-error>Company is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Company Contact" formControlName="companyCont" />
+          @if (posting.controls['companyCont'].hasError('required')) {
+          <mat-error>Company Contact is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Job Title" formControlName="job" />
+          @if (posting.controls['job'].hasError('required')) {
+          <mat-error>Job Title is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <textarea
+            matInput
+            placeholder="Brief Company Description"
+            formControlName="companyDesc"
+          ></textarea>
+          @if (posting.controls['companyDesc'].hasError('required')) {
+          <mat-error
+            >Company Description is <strong>required</strong></mat-error
+          >
+          }
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <textarea
+            matInput
+            placeholder="Job Responsibilities"
+            formControlName="jobResp"
+          ></textarea>
+          @if (posting.controls['jobResp'].hasError('required')) {
+          <mat-error
+            >Job Responsibilities is <strong>required</strong></mat-error
+          >
+          }
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <textarea
+            matInput
+            placeholder="Job Qualifications"
+            formControlName="jobQual"
+          ></textarea>
+          @if (posting.controls['jobQual'].hasError('required')) {
+          <mat-error>Job Qualifications is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Job Location" formControlName="jobLoc" />
+          @if (posting.controls['jobLoc'].hasError('required')) {
+          <mat-error>Job Location is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Job Salary" formControlName="jobSal" />
+          @if (posting.controls['jobSal'].hasError('required')) {
+          <mat-error>Job Salary is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!posting!.valid"
+      >
+        Done
+      </button>
+    </div>
+  </mat-dialog-content>
+</form>

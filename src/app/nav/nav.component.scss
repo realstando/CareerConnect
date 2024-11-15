@@ -23,3 +23,7 @@
 .title:hover {
   cursor: pointer;
 }
+
+.mat-toolbar img {
+  height: var(--mat-toolbar-standard-height);
+}
