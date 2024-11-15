@@ -1,1 +1,26 @@
-<p>backend works!</p>
+<div class="container">
+  <h2 class="mat-h2">All Job Postings</h2>
+  <mat-grid-list cols="2" rowHeight="50vh">
+    @if (display) { @for (doc of postingList ; track doc) {
+    <mat-grid-tile>
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>{{ doc['job'] }}</mat-card-title>
+            <mat-card-subtitle>{{ doc['company'] }}</mat-card-subtitle>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ doc['companyCont'] }}</p>
+          <p>{{ doc['companyDesc'] }}</p>
+          <p>{{ doc['jobDesc'] }}</p>
+          <p>{{ doc['jobResp'] }}</p>
+          <p>{{ doc['jobQual'] }}</p>
+          <p>{{ doc['jobSal'] }}</p>
+          <p>{{ doc['jobLoc'] }}</p>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    } }
+  </mat-grid-list>
+</div>

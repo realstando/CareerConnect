@@ -8,11 +8,10 @@ import {
 } from '@angular/fire/firestore';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
-  NgForm,
   ReactiveFormsModule,
   Validators,
+  FormGroupDirective,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -35,7 +34,9 @@ import { MatSelectModule } from '@angular/material/select';
 export class SubmitComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(private firestore: Firestore) {}
+  constructor(
+    private firestore: Firestore,
+  ) {}
 
   allPostings!: CollectionReference<DocumentData, DocumentData>;
 
@@ -58,5 +59,12 @@ export class SubmitComponent implements OnInit {
   onSubmit(): void {
     addDoc(this.allPostings, this.posting.value);
     this.posting.reset();
+    Object.keys(this.posting.controls).forEach((key) => {
+      const control = this.posting.get(key);
+      control?.setValidators(null); // Clear validators
+      control?.updateValueAndValidity(); // Update validity after clearing
+      control?.setValidators(Validators.required);
+    });
+
   }
-} 
+}
