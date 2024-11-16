@@ -45,7 +45,7 @@ export class PostingsComponent {
       .observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
       .subscribe((result) => {
         if (result.matches) {
-          this.rowHeight = '82vh'; // Adjust for smaller screens
+          this.rowHeight = '62vh'; // Adjust for smaller screens
         } else {
           this.rowHeight = '57vh'; // Default for larger screens
         }

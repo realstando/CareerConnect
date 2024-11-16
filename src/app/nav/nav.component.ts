@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnChanges } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -14,6 +14,7 @@ import { HomeComponent } from '../home/home.component';
 import { ApplyComponent } from '../apply/apply.component';
 import { LogInComponent } from '../forms/log-in/log-in.component';
 import { SignUpComponent } from '../forms/sign-up/sign-up.component';
+import { onAuthStateChanged, Auth, getAuth } from "@angular/fire/auth";
 
 @Component({
   selector: 'app-nav',
@@ -35,7 +36,15 @@ import { SignUpComponent } from '../forms/sign-up/sign-up.component';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavComponent {
+export class NavComponent{
+
+  constructor(private auth: Auth) {
+    // const a = getAuth();
+    // console.log(this.adminState);
+  }
+
+  adminState: boolean = true;
+
   private breakpointObserver = inject(BreakpointObserver);
 
   isHandset$: Observable<boolean> = this.breakpointObserver

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild, ViewChildren } from '@angular/core';
 
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -7,7 +7,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-
+import { signInWithEmailAndPassword, Auth } from "@angular/fire/auth";
+import { NavComponent } from '../../nav/nav.component';
 
 @Component({
   selector: 'app-log-in',
@@ -25,7 +26,10 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
   ]
 })
 export class LogInComponent {
-  constructor(private dialogRef: MatDialogRef<LogInComponent>) {}
+  constructor(private dialogRef: MatDialogRef<LogInComponent>, private auth: Auth) {
+  }
+
+  // @ViewChild(NavComponent) navComponent!: NavComponent;
 
   private fb = inject(FormBuilder);
   loginForm = this.fb.group({
@@ -35,5 +39,11 @@ export class LogInComponent {
 
   onSubmit(): void {
     this.dialogRef.close();
+    // if (this.loginForm.value.email && this.loginForm.value.password) {
+    //   signInWithEmailAndPassword(this.auth, this.loginForm.value.email, this.loginForm.value.password);
+    //   if (this.loginForm.value.email === "rryanwwang@gmail.com") {
+    //     console.log(this.navComponent.adminState);
+    //   }
+    // }
   }
 }

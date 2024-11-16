@@ -1,32 +1,43 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
     <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
+    <mat-nav-list color="white">
       <a mat-list-item routerLink="postings">All Postings</a>
       <a mat-list-item routerLink="submit">Submit Postings</a>
-      <a mat-list-item routerLink="backend">Admin</a>
+      @if (adminState) {
+      <a mat-list-item routerLink="backend" class="admin">Approve Postings</a>
+      <a mat-list-item routerLink="applications" class="admin"
+        >All Applications</a
+      >
+      }
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
       @if (isHandset$ | async) {
-        <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()">
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
       }
-      <img src="career_connect_logo.png">
+      <img src="career_connect_logo.png" />
       <span class="title" routerLink="home">CareerConnect</span>
       <span class="spacer"></span>
-      <button mat-button (click)="signUp()">Sign Up</button>
-      <button mat-button (click)="logIn()">Log In</button>
+      <!-- <button mat-button (click)="signUp()">Sign Up</button>
+      <button mat-button (click)="logIn()">Log In</button> -->
     </mat-toolbar>
+    <mat-divider></mat-divider>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>
   </mat-sidenav-content>
