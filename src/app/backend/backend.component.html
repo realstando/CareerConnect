@@ -1,26 +1,60 @@
 <div class="container">
+  <!-- Container for displaying all job postings -->
   <h2 class="mat-h2">All Job Postings</h2>
-  <mat-grid-list cols="2" rowHeight="50vh">
-    @if (display) { @for (doc of postingList ; track doc) {
-    <mat-grid-tile>
-      <mat-card class="card">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title>{{ doc['job'] }}</mat-card-title>
-            <mat-card-subtitle>{{ doc['company'] }}</mat-card-subtitle>
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{ doc['companyCont'] }}</p>
-          <p>{{ doc['companyDesc'] }}</p>
-          <p>{{ doc['jobDesc'] }}</p>
-          <p>{{ doc['jobResp'] }}</p>
-          <p>{{ doc['jobQual'] }}</p>
-          <p>{{ doc['jobSal'] }}</p>
-          <p>{{ doc['jobLoc'] }}</p>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    } }
+  
+  <!-- Material Grid List with two columns -->
+  <mat-grid-list cols="2" [rowHeight]="rowHeight">
+    <!-- Conditional display: Check if 'display' is true -->
+    @if (display) { 
+      <!-- Loop through 'postingList' using a trackBy function for optimization -->
+      @for (doc of postingList ; track doc) { 
+        <!-- Each grid tile contains one job posting -->
+        <mat-grid-tile>
+          <!-- Material Card to display job posting details -->
+          <mat-card class="card">
+            <!-- Material Card Header -->
+            <mat-card-header>
+              <!-- Group title and subtitle -->
+              <mat-card-title-group>
+                <!-- Job Title -->
+                <mat-card-title>{{ doc["job"] }}</mat-card-title>
+                <!-- Company Name -->
+                <mat-card-subtitle>{{ doc["company"] }}</mat-card-subtitle>
+              </mat-card-title-group>
+            </mat-card-header>
+            
+            <!-- Material Card Content: Detailed job information -->
+            <mat-card-content>
+              <!-- Company Contact -->
+              <p><b>Company Contact: </b>{{ doc["companyCont"] }}</p>
+              <!-- Company Description -->
+              <p><b>Company Description: </b>{{ doc["companyDesc"] }}</p>
+              <!-- Job Description -->
+              <p><b>Job Description: </b>{{ doc["jobDesc"] }}</p>
+              <!-- Job Responsibilities -->
+              <p><b>Job Responsibilities:</b> {{ doc["jobResp"] }}</p>
+              <!-- Job Qualifications -->
+              <p><b>Job Qualifications: </b>{{ doc["jobQual"] }}</p>
+              <!-- Job Salary -->
+              <p><b>Job Salary: </b>{{ doc["jobSal"] }}</p>
+              <!-- Job Location -->
+              <p><b>Job Location: </b>{{ doc["jobLoc"] }}</p>
+              
+              <!-- Button to approve the job posting -->
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                (click)="submit($index)"
+                [disabled]="false" 
+                #btn
+              >
+                Approve <!-- Button label -->
+              </button>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      } 
+    }
   </mat-grid-list>
 </div>

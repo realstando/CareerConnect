@@ -1,1 +1,37 @@
-<p>postings works!</p>
+<div class="container">
+    <h2 class="mat-h2">All Job Postings</h2>
+    <mat-grid-list cols="2" [rowHeight]="rowHeight">
+      @if (display) { @for (doc of postingList ; track doc) {
+      <mat-grid-tile>
+        <mat-card class="card">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>{{ doc["job"] }}</mat-card-title>
+              <mat-card-subtitle>{{ doc["company"] }}</mat-card-subtitle>
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            <p><b>Company Contact: </b>{{ doc["companyCont"] }}</p>
+          <p><b>Company Description: </b>{{ doc["companyDesc"] }}</p>
+          <p><b>Job Description: </b>{{ doc["jobDesc"] }}</p>
+          <p><b>Job Responsibilities</b>{{ doc["jobResp"] }}</p>
+          <p><b>Job Qualifications: </b>{{ doc["jobQual"] }}</p>
+          <p><b>Job Salary: </b>{{ doc["jobSal"] }}</p>
+          <p><b>Job Location: </b>{{ doc["jobLoc"] }}</p>
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              (click)="submit()"
+              [disabled]="false"
+              #btn
+            >
+              Apply
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      } }
+    </mat-grid-list>
+  </div>
+  

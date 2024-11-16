@@ -48,17 +48,9 @@ export class NavComponent {
 
     logIn() {
       const dialogRef = this.dialog.open(LogInComponent);
-  
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-      });
     }
 
     signUp() {
       const dialogRef = this.dialog.open(SignUpComponent);
-  
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-      });
     }
 }
