@@ -10,8 +10,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { HomeComponent } from "../home/home.component";
-import { ApplyComponent } from "../apply/apply.component";
+import { HomeComponent } from '../home/home.component';
+import { ApplyComponent } from '../apply/apply.component';
 import { LogInComponent } from '../forms/log-in/log-in.component';
 import { SignUpComponent } from '../forms/sign-up/sign-up.component';
 
@@ -31,26 +31,27 @@ import { SignUpComponent } from '../forms/sign-up/sign-up.component';
     RouterOutlet,
     AsyncPipe,
     HomeComponent,
-    ApplyComponent
+    ApplyComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavComponent {
   private breakpointObserver = inject(BreakpointObserver);
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
     .pipe(
-      map(result => result.matches),
+      map((result) => result.matches),
       shareReplay()
     );
 
-    readonly dialog = inject(MatDialog);
+  readonly dialog = inject(MatDialog);
 
-    logIn() {
-      const dialogRef = this.dialog.open(LogInComponent);
-    }
+  logIn() {
+    this.dialog.open(LogInComponent);
+  }
 
-    signUp() {
-      const dialogRef = this.dialog.open(SignUpComponent);
-    }
+  signUp() {
+    this.dialog.open(SignUpComponent);
+  }
 }

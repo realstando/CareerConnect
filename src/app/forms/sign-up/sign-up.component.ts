@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 
 @Component({
@@ -25,15 +25,17 @@ import { MatDialogModule } from '@angular/material/dialog';
   ]
 })
 export class SignUpComponent {
+  constructor(private dialogRef: MatDialogRef<SignUpComponent>) {}
+
   private fb = inject(FormBuilder);
   signupForm = this.fb.group({
     firstName: [null, Validators.required],
     lastName: [null, Validators.required],
-    email: [null, Validators.required, Validators.email],
+    email: [null, [Validators.required, Validators.email]],
     password: [null, Validators.required]
   });
 
   onSubmit(): void {
-    alert('Thanks!');
+    this.dialogRef.close();
   }
 }
