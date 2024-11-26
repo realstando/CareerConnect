@@ -34,11 +34,14 @@
       <img src="career_connect_logo.png" />
       <span class="title" routerLink="home">CareerConnect</span>
       <span class="spacer"></span>
-      <!-- <button mat-button (click)="signUp()">Sign Up</button>
-      <button mat-button (click)="logIn()">Log In</button> -->
+      @if (!loggedIn) {
+      <button mat-button (click)="signUp()">Sign Up</button>
+      <button mat-button (click)="logIn()">Log In</button>
+      } @else {
+      <button mat-button (click)="logOut()">Log Out</button>
+      }
     </mat-toolbar>
     <mat-divider></mat-divider>
-    <!-- Add Content Here -->
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -9,6 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { signInWithEmailAndPassword, Auth } from "@angular/fire/auth";
 import { NavComponent } from '../../nav/nav.component';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-log-in',
@@ -30,20 +31,19 @@ export class LogInComponent {
   }
 
   // @ViewChild(NavComponent) navComponent!: NavComponent;
+  authService = inject(AuthService);
 
   private fb = inject(FormBuilder);
-  loginForm = this.fb.group({
+  loginForm = this.fb.nonNullable.group({
     email: [null, [Validators.required, Validators.email]],
     password: [null, Validators.required]
   });
 
   onSubmit(): void {
+    const rawForm = this.loginForm.getRawValue();
     this.dialogRef.close();
-    // if (this.loginForm.value.email && this.loginForm.value.password) {
-    //   signInWithEmailAndPassword(this.auth, this.loginForm.value.email, this.loginForm.value.password);
-    //   if (this.loginForm.value.email === "rryanwwang@gmail.com") {
-    //     console.log(this.navComponent.adminState);
-    //   }
-    // }
+    if (rawForm.email && rawForm.password) {
+      this.authService.login(rawForm.email, rawForm.password);
+    }
   }
 }

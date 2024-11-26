@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, OnChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -7,14 +14,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { HomeComponent } from '../home/home.component';
 import { ApplyComponent } from '../apply/apply.component';
 import { LogInComponent } from '../forms/log-in/log-in.component';
 import { SignUpComponent } from '../forms/sign-up/sign-up.component';
-import { onAuthStateChanged, Auth, getAuth } from "@angular/fire/auth";
+import { onAuthStateChanged, Auth, getAuth } from '@angular/fire/auth';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -31,19 +39,30 @@ import { onAuthStateChanged, Auth, getAuth } from "@angular/fire/auth";
     RouterLink,
     RouterOutlet,
     AsyncPipe,
-    HomeComponent,
-    ApplyComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavComponent{
+export class NavComponent implements OnInit {
+  constructor( private cdr: ChangeDetectorRef) {}
 
-  constructor(private auth: Auth) {
-    // const a = getAuth();
-    // console.log(this.adminState);
+  router = inject(Router);
+  authService = inject(AuthService);
+  ngOnInit(): void {
+    this.authService.user$.subscribe((user: any) => {
+      if(user) {
+        this.loggedIn = true;
+        if (user.email === "rryanwwang@gmail.com") {
+          this.adminState = true;
+        }
+      } else {
+        this.loggedIn = false;
+      }
+      this.cdr.detectChanges();
+    })
   }
 
-  adminState: boolean = true;
+  loggedIn: boolean = false;
+  adminState: boolean = false;
 
   private breakpointObserver = inject(BreakpointObserver);
 
@@ -62,5 +81,12 @@ export class NavComponent{
 
   signUp() {
     this.dialog.open(SignUpComponent);
+  }
+  logOut() {
+    this.authService.logOut();
+    this.loggedIn = false;
+    this.adminState = false;
+    this.cdr.detectChanges();
+    this.router.navigateByUrl('/home');
   }
 }

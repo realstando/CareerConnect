@@ -6,8 +6,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { createUserWithEmailAndPassword, Auth } from "@angular/fire/auth";
+import {
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { createUserWithEmailAndPassword, Auth } from '@angular/fire/auth';
+import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -21,23 +27,32 @@ import { createUserWithEmailAndPassword, Auth } from "@angular/fire/auth";
     MatRadioModule,
     MatCardModule,
     ReactiveFormsModule,
-    MatDialogModule
-  ]
+    MatDialogModule,
+  ],
 })
 export class SignUpComponent {
-  constructor(private dialogRef: MatDialogRef<SignUpComponent>, private auth: Auth) {}
+  constructor(
+    private dialogRef: MatDialogRef<SignUpComponent>,
+    private auth: Auth
+  ) {}
+
+  authService = inject(AuthService);
+  router = inject(Router);
 
   private fb = inject(FormBuilder);
-  signupForm = this.fb.group({
+  signupForm = this.fb.nonNullable.group({
     email: [null, [Validators.required, Validators.email]],
-    password: [null, Validators.required]
+    password: [null, Validators.required],
+    name: [null, Validators.required],
   });
 
   onSubmit(): void {
+    const rawForm = this.signupForm.getRawValue();
     this.dialogRef.close();
-    if (this.signupForm.value.email && this.signupForm.value.password) {
-      createUserWithEmailAndPassword(this.auth, this.signupForm.value.email, this.signupForm.value.password);
+    if (rawForm.email && rawForm.password && rawForm.name) {
+      this.authService
+        .register(rawForm.email, rawForm.password, rawForm.name)
+        .subscribe(() => {});
     }
   }
-
 }
